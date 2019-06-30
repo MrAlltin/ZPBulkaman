@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="fullday">Полный день?</string>
+    <string name="cost">Выручка:</string>
+    <string name="ZP">Твоя ЗП:</string>
+    <string name="writeSD">Записать результат</string>
+
+</resources>
