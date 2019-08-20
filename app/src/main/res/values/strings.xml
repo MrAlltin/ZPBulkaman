@@ -4,5 +4,6 @@
     <string name="cost">Выручка:</string>
     <string name="ZP">Твоя ЗП:</string>
     <string name="writeSD">Записать результат</string>
+    <string name="send_data">Отправить!</string>
 
 </resources>

@@ -13,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     double ZP=0, cost=0;
     boolean fullday=false;
 
-    TextView textView5, ZPT, costt;
+    TextView textView2, ZPT, costt;
     Switch aSwitch;
     Button button, writebtn;
     EditText el;
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static Socket s;
     private static PrintWriter printWriter;
 
-    String message = "";
-    private static String ip = "192.168.0.103";
+    String message = "hello";
+    private static String ip = "192.168.0.104";
 
 
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         aSwitch=(Switch)findViewById(R.id.switch1);
         costt=(TextView)findViewById(R.id.editText);
         ZPT=(TextView)findViewById(R.id.textView4);
+        textView2=(TextView)findViewById(R.id.textView2);
 
         costt.setText("");
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculate(View v) {
         if (costt.getText().length() != 0) {
-            cost = Integer.parseInt(costt.getText().toString());
+            cost = Double.parseDouble(costt.getText().toString());
             if (fullday) {
                 ZP = cost * 0.005 + 1300;
 
@@ -70,25 +73,26 @@ public class MainActivity extends AppCompatActivity {
         } else Toast.makeText(getApplicationContext(), "Введите сумму!", Toast.LENGTH_SHORT).show();
     }
     public void send_text(View v){
-        message=costt.getText().toString();
+        message=MakeMessage(MakeMessage());
 
         myTask mt = new myTask();
+
         mt.execute();
 
         Toast.makeText(getApplicationContext(),"Данные отправлены", Toast.LENGTH_LONG).show();
 
 
     }
+
     class myTask extends AsyncTask<Void,Void,Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
 
             try {
-
                 s = new Socket(ip, 5000);
-                printWriter = new PrintWriter(s.getOutputStream());
-                printWriter.write("2132");
+                printWriter = new PrintWriter( new BufferedWriter( new OutputStreamWriter(s.getOutputStream())), true);
+                printWriter.println(message);
                 printWriter.flush();
                 printWriter.close();
                 s.close();
