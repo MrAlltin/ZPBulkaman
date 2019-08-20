@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         } else Toast.makeText(getApplicationContext(), "Введите сумму!", Toast.LENGTH_SHORT).show();
     }
     public void send_text(View v){
-        message=MakeMessage(MakeMessage());
+       // message=MakeMessage(MakeMessage());
 
         myTask mt = new myTask();
 
